@@ -1,86 +1,55 @@
-import React, { useState } from 'react';
-import MovieIcon from '@mui/icons-material/Movie';
+import React from 'react';
 import { Typography } from '@mui/material';
-import { Input } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { InputAdornment } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { StyledEngineProvider } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
+import { getPhotos } from '../../api/api';
+import MonochromePhotosIcon from '@mui/icons-material/MonochromePhotos';
+import MenuToggle from './MenuToggle/MenuToggle.jsx';
+import MediaQueries from '../../responsive/MediaQueries';
+import NavbarLogic from './NavbarLogic';
 
-
-const useStyles = makeStyles(() => ({
-    textField : {
-        color: "white",
-        "&::after" : {
-            borderBottom: '2px solid white'
-        } 
-    },
-    navbar : {
-        display: "flex",
-        alignItems:"center",
-        padding:"0 100px",
-        width: "100vw",
-        height: "70px",
-        backgroundColor:"#2c2d3d",
-        justifyContent:"space-between"
-    },
-    logo : {
-        display: "flex"
-    },
-    navbarItems : {
-        display:"flex",
-        width: "400px",
-        justifyContent:"space-evenly",
-        color:"white"
+const StyledNavbar = styled('div')(({theme}) => ({
+    display: "flex",
+    alignItems:"center",
+    padding:"25px 100px 25px 160px",
+    width: "100vw",
+    backgroundColor:"#2c2d3d",
+    justifyContent:"space-between",
+    [theme.breakpoints.down(600)] : {
+        padding:'25px'
     }
 }));
 
+const StyledLogo = styled('div')(() =>({
+    display: "flex",
+}))
+
+const StyledNavbarItemsContainer = styled('div')(() =>({
+    display:"flex",
+    justifyContent:"space-evenly",
+    color:"white",
+    marginRight:'60px',
+}))
+
 
 const Navbar = () => {
-
-    const classes = useStyles();
-    const [ search, setSearch ] = useState('');
-
-    const navbarItems = 
-        [
-            {name: "Movies", id: 1},
-            {name: "TV Shows", id: 2}, 
-            {name: "Actors", id: 3}, 
-            {name: "Directors", id: 4}
-        ]
-        .map(item => 
-            <Typography variant="h7" key={item.id}>
-                {item.name}
-            </Typography>
-        );
-
-    const handleSearch = e => {
-        setSearch(e.currentTarget.value);
-    }
+    
+    const { isTablet } = MediaQueries();
+    const { toggle,navbarItems,renderNavbarItems } = NavbarLogic();
+        
 
     return (
-        <StyledEngineProvider injectFirst>
-            <div className={classes.navbar}>
-                <div className={classes.logo}>
-                    <MovieIcon style={{color:"white"}} fontSize="large"/>
-                    <Typography variant="h6" style={{color:"white"}}>Movie App</Typography>
-                </div>
-                <div className={classes.navbarItems}>
-                    {navbarItems}
-                </div>
-                <Input 
-                    className={classes.textField}
-                    placeholder="Search"
-                    value={search}
-                    onChange={handleSearch}
-                    startAdornment ={
-                        <InputAdornment position="start">
-                                    <SearchIcon style={{color:"white"}}/>
-                            </InputAdornment>
-                    }
-                />
-            </div>
-        </StyledEngineProvider>
+        <StyledNavbar>
+            <StyledLogo>
+                <MonochromePhotosIcon style={{color:"white"}} fontSize="large"/>
+                <Typography variant="h6" style={{color:"white",letterSpacing:'1px',marginLeft:'5px'}}>photoverse</Typography>
+            </StyledLogo>
+            { isTablet 
+                ? <MenuToggle toggle={toggle} navbarItems={navbarItems}/>
+                : <StyledNavbarItemsContainer>
+                    {renderNavbarItems}
+                </StyledNavbarItemsContainer>
+            }
+        </StyledNavbar>
     )
 }
 
