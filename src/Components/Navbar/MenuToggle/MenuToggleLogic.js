@@ -8,8 +8,6 @@ const useStyles = makeStyles({
     menuItem : {
         width:'100vw',
         '&:hover' : {
-            backgroundColor: '#2c2d3d !important',
-            color:'white',
             transition: 'all .2s ease',
             '& .MuiSvgIcon-root' : {
                 color: 'white',
@@ -17,6 +15,20 @@ const useStyles = makeStyles({
             }
         },
         
+    },
+    link : {
+        textDecoration:'none',
+        '& li' : {
+            color:'white',
+            opacity:'0.8',
+            '&:hover' : {
+                backgroundColor:'white',
+                color: '#2c2d3d',
+                '& .MuiSvgIcon-root' : {
+                    color: '#2c2d3d'
+                }
+            }
+        }
     }
 })
 
@@ -35,14 +47,14 @@ const MenuToggleLogic = ({toggle,navbarItems}) => {
     }
 
     const renderMenuItems = navbarItems.map(item =>
-        <Link to={item.link} style={{textDecoration:'none',color:'inherit'}} key={item.id}> 
+        <Link to={item.link} className={classes.link} key={item.id}> 
             <MenuItem 
                 className={classes.menuItem}
                 onClick={handleClose}>
                 <ListItemIcon>
                     {item.menuIcon}
                 </ListItemIcon>
-                    {item.name}
+                    {item.title}
             </MenuItem>
         </Link>
     );

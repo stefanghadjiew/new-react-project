@@ -1,0 +1,139 @@
+{
+    "Navbar": {
+      "items": {
+        "0": "Home",
+        "1": "Photos",
+        "2": "Users",
+        "3": "Collections",
+        "4": "Topics",
+        "5": "Login"
+      }
+    },
+    "HomePage" : {
+      "title": "Welcome to where\nall photos live",
+      "subtitle": "Manage , upload , browse and rate all kinds of amazing photos\nand become a part of our family!",
+      "section": {
+          "titles" : {
+            "0": "Why 10,000+ developers love Photovers's APIs",
+            "1": "Abstract's Website Screenshot API helps you take reliable, customizable screenshots of any URL",
+            "2": "Simple, transparent, and cost-effective pricing",
+            "3": "Need more requests, enterprise-grade SLA's, faster response time, or premium data?\nContact us to learn about our Enterprise plan.",
+            "4": "Website Screenshot API Documentation",
+            "5": "Website Screenshot API Changelog",
+            "6": "Last Updated on June 27, 2020",
+            "7": "<strong>June 27, 2020<\/strong> - Expanded ability to detect and selectively remove ads",
+            "8": "<strong>June 26, 2020<\/strong> - Improved response time on pages with heavy Javascript",
+            "9": "GET STARTED",
+            "10": "Get FREE credits to start today.",
+            "11": "Get thousands of API calls for free across all Abstract APIs." 
+          }
+      },
+      "services": {
+        "0": "Lighting\nfast loading",
+        "1": "Best photos\non the web",
+        "2": "Amazing\ncommunity",
+        "3": "Something\nabout collections"
+      },
+      "steps": {
+        "0": "Easy to implement and maintain",
+        "1": " We built Abstract because most of the API's we've used aren't great for developers. That's why Abstract has excellent documentation, multiple easy to use libraries, and tutorials to get you started.",
+        "2": "Speed and scale built into\neverything we do",
+        "3": "Our APIs are built to power critical business processes and flows, so all our APIs are built for use at scale and at blazing speeds. These aren't just marketing phrases for, but fundamental features of our APIs.",
+        "4": "Reliable uptime and great support",
+        "5": "Developers trust Abstract because of our reliable uptime and excellent technical support that will help get you live quickly, keep you running smoothly, and resolve any issues you have fast."
+      },
+      "productBenefits": {
+        "0": "Powerful website to image API",
+        "1": "Abstract's Website Screenshot API is designed with the right mix of power and simplicity: making it easy for you to the an image of any site, exactly how you want it, and when you want it.",
+        "2": "A simple, fast, and reliable REST API",
+        "3": "Abstract's Website Screenshot API is built to industry standards to make it easy for you to implement quickly and then forget it. We handle everything else so you can focus on your business.",
+        "4": "Robust image rendering engine",
+        "5": "The Website Screenshot API's powerful rendering engine handles anything you can throw at it, from HTML to CSS,  SVG to Webfonts, Graphs, Images, and more.",
+        "6": "Highly customizable image options",
+        "7": "Get the website screenshot image in any format (PNG, JPEG, etc) as well as sent or stored almost anywhere you like. The Website Screenshot API will adapt to your workflow.",
+        "8": "Set view port, dimensions, and more",
+        "9": "Get exactly the website screenshot you need with the ability to specify the screenshot's view port and dimensions. Take seamless screenshots for web, tablet, mobile, and more.",
+        "10": "Inject custom CSS",
+        "11": "Abstract's Website Screenshot API makes it easy to modify the target page by injecting custom CSS into the request. Add your own CSS and get the exact screenshot you want.",
+        "12": "Set custom timing and delayed captures",
+        "13": "The powerful customization continues, with the ability to add in capture delays and other custom timing to ensure you get the exact screenshot you want of the website.",
+        "14": "Bank-level security for all queries",
+        "15": "Security is very important to us, so all data that is sent to Abstract's Website Screenshot API and processed by Abstract is secured by 256-bit SSL encryption (HTTPS)." 
+      },
+      "pricings": {
+        "package": {
+          "0" : {
+            "title": "FREE",
+            "subtitle": "no card required!",
+            "price": "$0"
+          },
+          "1": {
+            "title": "STARTER",
+            "subtitle": "per month",
+            "price": "$9"
+          },
+          "2": {
+            "title": "PRO",
+            "subtitle": "per month",
+            "price": "$49"
+          },
+          "3": {
+            "title": "ENTERPRISE",
+            "subtitle": "per month",
+            "price": "$499"
+          }
+
+        },
+        "benefits": {
+          "free": {
+            "0": "100 requests",
+            "1": "1 request / second"
+          },
+          "starter": {
+            "0": "3,000 requests / month",
+            "1": "50 requests / second",
+            "2": "Commercial use allowed",
+            "3": "Email support"
+          },
+          "pro": {
+            "0": "20,000 requests / month",
+            "1": "500 requests / second",
+            "2": "Commercial use allowed",
+            "3": "Premium enriched data",
+            "4": "Email support"
+          },
+          "enterprise": {
+            "0": "250,000 / month",
+            "1": "500 requests / second",
+            "2": "Commercial use allowed",
+            "3": "Premium enriched data",
+            "4": "Email support"
+          }
+        }
+      },
+      "documentationItems": {
+        "0": {
+          "title": "Overview",
+          "subtitle": "Abstract's Website Screenshot API is a simple yet powerful REST API that allows you to request an image of a given URL. It accepts but does not require various customizations on the image capture and rendering, such as setting a capture delay, injecting custom CSS, and specifying the capture's view port."
+
+        },
+        "1": {
+          "title": "REST",
+          "subtitle": "The Website Screenshot API, like all of Abstract's APIs, is organized around REST. It is designed to use predictable, resource-oriented URL's and to use HTTP status codes to indicate errors."
+        },
+        "2": {
+          "title": "HTTPS",
+          "subtitle": "The Website Screenshot API requires all communications to be secured TLS 1.2 or greater."
+        },
+        "3": {
+          "title": "API Versions",
+          "subtitle": "All of Abstract's API are versioned.<b>The Website Screenshot API is currently on Version 1.<\/b>"
+        }
+      },
+      "buttons": {
+        "0" : "Get started",
+        "1" : "Try it free"
+      }
+    }
+      
+}

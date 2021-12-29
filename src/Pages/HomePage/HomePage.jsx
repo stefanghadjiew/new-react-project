@@ -1,63 +1,115 @@
 import React from 'react';
-import { Typography } from '@mui/material';
-import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+import HomePageLogic from './HomePageLogic';
+import {
+    PageWrapper,
+    CustomButton, 
+    H3,
+    H5,
+    H6,
+    Subtitle,
+    CustomGrid,
+    SectionWrapper
+        } from '../../Components';
+import MediaQueries from '../../responsive/MediaQueries';
+import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
 
-
-const StyledPageWrapper = styled('div')(({theme}) =>({
-    backgroundColor: '#2c2d3d',
-    width: '100vw',
-    padding: '25px 100px 25px 160px',
-    [theme.breakpoints.down('600')] : {
-        padding:'25px'
-    }
-}));
-
-const StyledHeading = styled(Typography)(() =>({
-    color: 'white',
-    opacity: '0.8',
-    marginTop:'80px',
-    fontWeight:'600',
-}));
-
-const StyledSubheading =styled(Typography)(() =>({
-    fontSize: '16px !important',
-    marginTop:'30px !important',
-    color:'white',
-    opacity: '0.8',
+const StyledSubheadingWrapper = styled('div')(() =>({
+    marginTop:'30px',
     letterSpacing:'1px'
 }));
 
-const StyledButton = styled(Button)(() => ({
-    marginTop:'30px',
-    color:'white',
-    textTransform:'none',
-    padding:'10px 40px',
-    borderRadius:'10px',
-    fontSize:'18px',
-    backgroundColor:'#687ded',
-    opacity: '0.8',
-    '&:hover': {
-        textShadow: '0px 3px 3px black',
-        backgroundColor:'#687ded',
-        transition: 'all .3s ease',
-        opacity: '0.9'
-    }
+const StyledServicesWrapper = styled('div')(() => ({
+    marginTop:'120px',
+    display:'flex',
+    justifyContent:'space-between',
 }));
 
+const StyledStepsWrapper = styled('div')(({theme}) => ({
+    display:'flex',
+    justifyContent:'space-evenly',
+    [theme.breakpoints.down(900)] : {
+        display: 'block'
+    }
+}))
+
+const StyledPricingWrapper = styled('div')(({theme}) => ({
+    display:'flex',
+    [theme.breakpoints.down(900)] : {
+        display: 'block'
+    }
+}))
 
 const HomePage = () => {
 
+    const { t } = useTranslation();
+    const { 
+        renderServicesPrevie, 
+        renderSteps, 
+        renderProductBenefits, 
+        renderPricings,
+        renderDocumentationItems 
+    } = HomePageLogic();
+    const { isMobile } = MediaQueries();
+
+    
+
     return (
-        <StyledPageWrapper>
-            <StyledHeading variant='h3'>
-                Welcome to where<br/>all photos live
-            </StyledHeading>
-            <StyledSubheading variant='h4'>
-                Manage , upload , browse and rate all kinds of amazing photos<br/> and become a part of our family!
-            </StyledSubheading>
-            <StyledButton size="large" variant="contained">Get started</StyledButton>
-        </StyledPageWrapper>
+        <PageWrapper>
+            <SectionWrapper>
+                <H3 text={t("HomePage.title")}/>
+                <StyledSubheadingWrapper>
+                    <Subtitle text={t("HomePage.subtitle")}/>
+                </StyledSubheadingWrapper>
+                <CustomButton buttonText={t("HomePage.buttons.0")}/>
+                { !isMobile && 
+                    <StyledServicesWrapper>
+                        {renderServicesPrevie}
+                    </StyledServicesWrapper>
+                }
+            </SectionWrapper>
+            <SectionWrapper style={{textAlign:'center',lineHeight:'30px'}}> 
+                <H5 text={t("HomePage.section.titles.0")}/>
+                   <StyledStepsWrapper>
+                    {renderSteps}
+                </StyledStepsWrapper>
+            </SectionWrapper>
+            <SectionWrapper style={{textAlign: 'center'}}>
+                <H5 text={t("HomePage.section.titles.1")}/>
+                <CustomGrid>
+                    {renderProductBenefits}
+                </CustomGrid>
+            </SectionWrapper>
+            <SectionWrapper>
+                <H5 style={{textAlign:'center'}} text={t("HomePage.section.titles.2")}/>
+                <StyledPricingWrapper>
+                    {renderPricings}
+                </StyledPricingWrapper>
+                <Subtitle style={{textAlign:'center',lineHeight:'30px',marginTop:'30px'}} text={t("HomePage.section.titles.3")}/>
+            </SectionWrapper>
+            <SectionWrapper>
+                <H3 style={{textAlign: 'center', fontSize:'32px'}} text={t("HomePage.section.titles.4")}/>
+                {renderDocumentationItems}
+            </SectionWrapper>
+            <SectionWrapper>
+                <H3 style={{textAlign: 'center', fontSize:'32px'}} text={t("HomePage.section.titles.5")}/>
+                <H3 style={{fontSize:'24px',textAlign: 'center'}} text={t("HomePage.section.titles.6")}/>
+                <Box style={{display:'flex', flexDirection: 'column'}}>
+                    <Subtitle style={{padding:'10px 0px'}} text={t("HomePage.section.titles.7")}/>
+                    <Subtitle style={{padding:'10px 0px'}} text={t("HomePage.section.titles.8")}/>
+                </Box>
+                <H3 
+                    style={{fontSize:'14px',letterSpacing:'2px',textTransform:'uppercase',textAlign:'center',marginTop:'10rem',color:'#687ded'}}
+                    text={t("HomePage.section.titles.9")}
+                    />
+                <H5 style={{textAlign:'center',margin: '20px 0px 10px'}} text={t("HomePage.section.titles.10")}/>
+                <H6 style={{textAlign:'center',margin:'20px 0px 10px'}} text={t("HomePage.section.titles.11")}/>
+                <Box display="flex" justifyContent="center">
+                    <CustomButton buttonText="GET YOUR FREE API KEY"/>
+                </Box>
+            </SectionWrapper>
+        </PageWrapper>
    )
 }
 
