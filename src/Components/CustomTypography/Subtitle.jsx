@@ -7,7 +7,7 @@ const StyledTypography = styled(Typography)(() => ({
     opacity: '0.8',
 }));
 
-const CustomTypographyH7 = ({...props}) => {
+const Subtitle = ({...props}) => {
 
     const { style,text } = props;
 
@@ -18,4 +18,4 @@ const CustomTypographyH7 = ({...props}) => {
     )
 }
 
-export default CustomTypographyH7;
+export default Subtitle;
