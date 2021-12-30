@@ -6,7 +6,8 @@ const CustomGrid = ({children}) => {
         <Grid 
             container 
             style={{backgroundColor: '#2c2d3d'}} 
-            rowSpacing={4}>
+            rowSpacing={4}
+        >
             {children}
         </Grid>
     )

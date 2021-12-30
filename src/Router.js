@@ -17,7 +17,7 @@ const Router = () => {
                         <Routes>
                             <Route exact path="/" element={<HomePage/>}/>
                         </Routes>
-                    {/* </ThemeProvider> */}
+                        {/* </ThemeProvider> */}
                 </BrowserRouter>
             </Suspense>
         </>
