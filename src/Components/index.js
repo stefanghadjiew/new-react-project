@@ -8,3 +8,4 @@ export { default as Subtitle } from './CustomTypography/Subtitle.jsx'
 export { default as CustomGrid } from './CustomGrid/CustomGrid.jsx';
 export { default as PageWrapper} from './PageWrapper/PageWrapper.jsx';
 export { default as SectionWrapper } from './SectionWrapper/SectionWrapper.jsx';
+export { default as Footer } from './Footer/Footer.jsx';

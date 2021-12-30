@@ -21,8 +21,8 @@
             "4": "Website Screenshot API Documentation",
             "5": "Website Screenshot API Changelog",
             "6": "Last Updated on June 27, 2020",
-            "7": "<strong>June 27, 2020<\/strong> - Expanded ability to detect and selectively remove ads",
-            "8": "<strong>June 26, 2020<\/strong> - Improved response time on pages with heavy Javascript",
+            "7": "<p><strong>June 27, 2020</strong> - Expanded ability to detect and selectively remove ads</p>",
+            "8": "<p><strong>June 26, 2020</strong> - Improved response time on pages with heavy Javascript</p>",
             "9": "GET STARTED",
             "10": "Get FREE credits to start today.",
             "11": "Get thousands of API calls for free across all Abstract APIs." 
@@ -127,7 +127,7 @@
         },
         "3": {
           "title": "API Versions",
-          "subtitle": "All of Abstract's API are versioned.<b>The Website Screenshot API is currently on Version 1.<\/b>"
+          "subtitle": "<p>All of Abstract's API are versioned.<strong> The Website Screenshot API is currently on Version 1.</strong></p>"
         }
       },
       "buttons": {

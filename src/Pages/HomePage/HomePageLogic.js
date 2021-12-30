@@ -28,6 +28,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -185,7 +186,7 @@ const HomePageLogic = () => {
     
     const renderProductBenefits = productBenefits.map(benefit =>
         <Grid item xs={12} md={6} style={{backgroundColor:'#2c2d3d',lineHeight:'30px'}} key={benefit.id}>
-            <Item style={{backgroundColor:'#2c2d3d', boxShadow:'none'}}>
+            <Item style={{backgroundColor:'#2c2d3d', boxShadow:'none', maxWidth:'600px'}}>
                 <Step title={benefit.title} icon={benefit.icon} description={benefit.description}/>
             </Item>
         </Grid>
@@ -280,7 +281,7 @@ const HomePageLogic = () => {
         },
         {
             title: <H5 style={{margin:'20px 0px 10px',fontWeight:'bold'}} text={t('HomePage.documentationItems.3.title')}/>,
-            description: <Subtitle style={{fontSize:'14px'}} text={t('HomePage.documentationItems.3.subtitle')}/>,
+            description: <Trans i18nKey="HomePage.documentationItems.3.subtitle"/>,
             id: 3
         }
     ]

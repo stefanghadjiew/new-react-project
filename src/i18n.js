@@ -17,13 +17,13 @@ i18n
   .init({
     fallbackLng: 'en',
     debug: true,
-
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
     backend: {
       loadPath: '/assets/locales/{{lng}}/translation.json'
-    }
+    },
+    
   });
 
 export default i18n;

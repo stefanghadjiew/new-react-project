@@ -21,6 +21,12 @@ code {
   white-space: pre-line; 
 }
 
+p {
+  color: white; 
+  opacity: .8;
+  padding: 15px 0px;
+  font-size: 14px;
+}
 /* * {
   border: 1px solid red;
 } */
