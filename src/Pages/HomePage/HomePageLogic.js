@@ -77,8 +77,6 @@ const HomePageLogic = () => {
     const { t } = useTranslation();
     const classes = useStyles();
 
-    
-
     const servicesPreview = [
         {
             title: <Subtitle text={t('HomePage.services.0')} lineHeight="normal"/>,

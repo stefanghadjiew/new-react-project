@@ -1,21 +1,14 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import React from 'react'
+import { StyledH5 } from './styles'
 
-const StyledTypography = styled(Typography)(() => ({
-    color:'white',
-    opacity: '0.8',
-}));
-
-const H5 = ({...props}) => {
-
-    const { style,text } = props
+const H5 = ({ ...props }) => {
+    const { style, text } = props
 
     return (
-        <StyledTypography variant="h5" style={style} {...props}>
+        <StyledH5 variant="h5" style={style} {...props}>
             {text}
-        </StyledTypography>
+        </StyledH5>
     )
 }
 
-export default H5;
+export default H5
