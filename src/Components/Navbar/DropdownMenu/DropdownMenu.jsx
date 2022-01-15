@@ -1,10 +1,10 @@
 import React from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuToggleLogic from './MenuToggleLogic';
+
+import IconButton from '@mui/material/IconButton';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
+import Menu from '@mui/material/Menu';
 import { makeStyles } from '@mui/styles';
+import DropdownMenuLogic from './DropdownMenuLogic';
 
 const useStyles = makeStyles({
     menu : {
@@ -15,20 +15,22 @@ const useStyles = makeStyles({
     }
 })
 
-const MenuToggle = ({toggle, navbarItems}) => {
-
+const DropdownMenu = ({toggle,menuIcon,menuItems,...props}) => {
     const classes = useStyles();
+    const {
+        anchorEl,
+        handleOpen,
+        handleClose
+    } = DropdownMenuLogic(toggle);
 
-    const { anchorEl, handleOpen, renderMenuItems, handleClose } = MenuToggleLogic({toggle,navbarItems});
-    
     return (
-        <>  
+        <div {...props}>  
             <ClickAwayListener onClickAway={handleClose}>
                 <IconButton 
                     style={{color:"white"}} 
                     onClick={handleOpen}
                 >
-                    <MenuIcon style={{fontSize:'30px'}}/>
+                    {menuIcon}
                 </IconButton>
             </ClickAwayListener>
             <Menu
@@ -37,11 +39,10 @@ const MenuToggle = ({toggle, navbarItems}) => {
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
             >
-                {renderMenuItems}
+                {menuItems}
             </Menu>
-        </>
-            
+        </div>
     )
 }
 
-export default MenuToggle;
+export default DropdownMenu;

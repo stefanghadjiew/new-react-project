@@ -1,22 +1,14 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import React from 'react'
+import { StyledH6 } from './styles'
 
-const StyledTypography = styled(Typography)(() => ({
-    color:'white',
-    opacity: '0.8',
-    fontSize:'1.125rem',
-}));
-
-const H6 = ({...props}) => {
-
-    const { style,text } = props
+const H6 = ({ ...props }) => {
+    const { style, text } = props
 
     return (
-        <StyledTypography variant="h6" style={style} {...props}>
+        <StyledH6 variant="h6" style={style} {...props}>
             {text}
-        </StyledTypography>
+        </StyledH6>
     )
 }
 
-export default H6;
+export default H6

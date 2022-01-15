@@ -1,21 +1,14 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import React from 'react'
+import { StyledSubtitle } from './styles'
 
-const StyledTypography = styled(Typography)(() => ({
-    color:'white',
-    opacity: '0.8',
-}));
-
-const Subtitle = ({...props}) => {
-
-    const { style,text } = props;
+const Subtitle = ({ ...props }) => {
+    const { style, text, key } = props
 
     return (
-        <StyledTypography variant="subtitle1" style={style} {...props}>
+        <StyledSubtitle variant="subtitle1" style={style} {...props} key={key}>
             {text}
-        </StyledTypography>
+        </StyledSubtitle>
     )
 }
 
-export default Subtitle;
+export default Subtitle

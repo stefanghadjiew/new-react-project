@@ -1,26 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-import { Subtitle } from '../../Components';
+import React from 'react'
 
-const StyledLink = styled(Link)(() =>({
-    textDecoration: 'none',
-    '&:hover' : {
-        transform:'translateY(-2.5px)',
-        transition: '.3s ease',
-        '& h6' : {
-            opacity: '1'
-        }
-    },
-    transition: '.3s ease'
-}));
+import { Subtitle } from '../../Components'
+import StyledLink from './styles'
 
-const CustomLink = ({link,title}) => {
+const CustomLink = ({ link, title, style, ...props }) => {
     return (
-        <StyledLink to={link}>
-            <Subtitle text={title}/>
+        <StyledLink to={link} {...props}>
+            <Subtitle text={title} style={style} />
         </StyledLink>
     )
 }
 
-export default CustomLink;
+export default CustomLink

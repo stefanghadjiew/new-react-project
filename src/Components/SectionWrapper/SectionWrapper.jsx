@@ -1,27 +1,12 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React from 'react'
+import { OuterWrapper, InnerWrapper } from './styles'
 
-const OuterWrapper = styled('div')(() =>({
-    marginTop:'10rem',
-}));
-
-const InnerWrapper = styled('div')(() =>({
-    maxWidth:'1110px',
-    display:"block",
-    marginLeft:'auto',
-    marginRight:'auto'
-}))
-
-
-const SectionWrapper = ({children, ...props}) => {
-
+const SectionWrapper = ({ children, ...props }) => {
     return (
         <OuterWrapper {...props}>
-            <InnerWrapper>
-                {children}
-            </InnerWrapper>
+            <InnerWrapper>{children}</InnerWrapper>
         </OuterWrapper>
     )
 }
 
-export default SectionWrapper;
+export default SectionWrapper
