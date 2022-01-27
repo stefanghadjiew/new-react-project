@@ -1,11 +1,12 @@
 import React from 'react'
 import StyledButton from './styles'
 
-const CustomButton = ({ buttonText, ...props }) => {
-    const { style, onClick, startIcon } = props
-
+const CustomButton = React.forwardRef(({ buttonText, ...props }) => {
+    const { style, onClick, startIcon, ref} = props
+   
     return (
         <StyledButton
+            ref={ref}
             variant="contained"
             style={style}
             onClick={onClick}
@@ -15,6 +16,6 @@ const CustomButton = ({ buttonText, ...props }) => {
             {buttonText}
         </StyledButton>
     )
-}
+})
 
 export default CustomButton

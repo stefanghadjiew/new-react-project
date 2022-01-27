@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 
+
 const StyledButton = styled(Button)(({ theme }) => ({
     marginTop: '30px',
     color: 'white',
@@ -12,6 +13,9 @@ const StyledButton = styled(Button)(({ theme }) => ({
     height: '40px',
     opacity: '0.8',
     transition: 'all .3s ease',
+    '&:focus' : {
+        backgroundColor: theme.themeColors.dark.button
+    },
     '& .Mui-disabled': {
         backgroundColor: '#687ded',
         color: 'rgba(255,255,255,.8)',

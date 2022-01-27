@@ -1,15 +1,22 @@
 const initialState = {
     loading: false,
-    user: {},
+    user: null,
     messageToast: {
         isOpen: false,
         message: '',
-        severity: 'success',
+        severity: '',
     },
     photos: {
         displayedImages: [],
         page: 1,
+        currentlyDisplayedImage : [],
+        currentlyDisplayedImageStatistics : []
     },
+    darkTheme: true,
+    /* theme : { ---> is that better ??
+        dark : false,
+        light : true,
+    }, */
     subscription: '',
     onDemand: '',
     error: '',

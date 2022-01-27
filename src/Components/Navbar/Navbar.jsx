@@ -1,10 +1,7 @@
 import React from 'react'
-import DropdownMenu from './DropdownMenu/DropdownMenu.jsx'
 import MediaQueries from '../../responsive/MediaQueries'
-import NavbarLogic from './NavbarLogic'
 import Logo from '../Logo/Logo.jsx'
 import CustomButton from '../CustomButton/CustomButton.jsx'
-import LanguageIcon from '@mui/icons-material/Language'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -14,17 +11,18 @@ import {
     StyledNavbarItemsContainer,
     ToggleMenuWrapper,
 } from './styles'
+import StaticResources from './staticResources.js'
+import Drawer from '../Drawer/Drawer'
+import SettingsIcon from '@mui/icons-material/Settings';
+
 
 const Navbar = () => {
     const navigate = useNavigate()
     const { isTablet } = MediaQueries()
-    const {
-        toggleMenu,
-        toggleSelectLanguage,
-        renderMenuItems,
+    
+    const { renderMenuItems,
         renderLanguages,
-        renderDropdownMenuItems,
-    } = NavbarLogic()
+        renderDropdownMenuItems} = StaticResources()
 
     return (
         <Wrapper>
@@ -41,26 +39,18 @@ const Navbar = () => {
                                 }}
                                 onClick={() => navigate('/signup')}
                             />
-                            <DropdownMenu
-                                toggle={toggleSelectLanguage}
-                                menuItems={renderLanguages}
-                                menuIcon={
-                                    <LanguageIcon
-                                        style={{ fontSize: '30px' }}
-                                    />
-                                }
-                            />
-                            <DropdownMenu
-                                toggle={toggleMenu}
+                            <Drawer 
+                                icon={<MenuIcon style={{ fontSize: '30px' }} />}
                                 menuItems={renderDropdownMenuItems}
-                                menuIcon={
-                                    <MenuIcon style={{ fontSize: '30px' }} />
-                                }
-                            />
+                                languages={renderLanguages}/>
                         </ToggleMenuWrapper>
                     ) : (
                         <StyledNavbarItemsContainer>
                             {renderMenuItems}
+                            <Drawer
+                                icon={<SettingsIcon/>}
+                                languages={renderLanguages}
+                                />
                         </StyledNavbarItemsContainer>
                     )}
                 </StyledNavbarContainer>

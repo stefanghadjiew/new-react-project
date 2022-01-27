@@ -1,13 +1,13 @@
 import React from 'react'
-import { StyledSubtitle } from './styles'
+import { Typography } from '@mui/material'
 
 const Subtitle = ({ ...props }) => {
     const { style, text, key } = props
 
     return (
-        <StyledSubtitle variant="subtitle1" style={style} {...props} key={key}>
+        <Typography variant="subtitle1" style={style} {...props} key={key}>
             {text}
-        </StyledSubtitle>
+        </Typography>
     )
 }
 

@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles'
 
 export const Wrapper = styled('div')(({ theme }) => ({
-    backgroundColor: '#2c2d3d',
+    backgroundColor: theme.themeColors.dark.background,
     padding: '30px',
     position: 'sticky',
     top: 0,
@@ -28,7 +28,7 @@ export const StyledNavbarItemsContainer = styled('div')(() => ({
     display: 'flex',
     justifyContent: 'flex-end',
     color: 'white',
-
+    alignItems:'center',
     '& h6': {
         padding: '5px 20px',
     },
@@ -36,7 +36,7 @@ export const StyledNavbarItemsContainer = styled('div')(() => ({
 
 export const ToggleMenuWrapper = styled('div')(({ theme }) => ({
     display: 'flex',
-    width: '250px',
+    width: '150px',
     justifyContent: 'space-between',
     alignItems: 'center',
 }))

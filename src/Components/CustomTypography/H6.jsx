@@ -1,13 +1,13 @@
 import React from 'react'
-import { StyledH6 } from './styles'
+import { Typography } from '@mui/material'
 
 const H6 = ({ ...props }) => {
     const { style, text } = props
 
     return (
-        <StyledH6 variant="h6" style={style} {...props}>
+        <Typography variant="h6" style={style} {...props}>
             {text}
-        </StyledH6>
+        </Typography>
     )
 }
 

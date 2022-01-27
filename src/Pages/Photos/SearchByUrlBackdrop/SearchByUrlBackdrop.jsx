@@ -14,8 +14,7 @@ import { StyledContainer, SerachByUrlContainer, Content, Or } from './styles'
 const SearchByUrlBackdrop = ({
     open,
     onCloseClick,
-    inputValue,
-    handleSearchByUrl,
+    input,
     onSearchClick,
 }) => {
     return (
@@ -49,8 +48,8 @@ const SearchByUrlBackdrop = ({
                         <Or>or</Or>
                         <CustomInput
                             label="Paste img URL"
-                            outsidevalue={inputValue}
-                            handleoutsidevalue={handleSearchByUrl}
+                            value={input.value}
+                            onChange={input.onChange}
                         />
                         <CustomButton
                             style={{ width: ' 100%' }}

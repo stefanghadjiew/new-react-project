@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
     PageWrapper,
     PaginationComponent,
     H3,
-    Subtitle,
     Navbar,
     ImagesList,
     SectionWrapper,
@@ -24,62 +23,72 @@ import Subscription from './Subscription/Subscription.jsx'
 import actionTypes from '../../GlobalContext/actionTypes'
 import OnDemand from './OnDemand/OnDemand.jsx'
 import { SearchWrapper, SearchComponent } from './styles'
+import useInput from '../../CustomHooks/useInput'
+import ImageBackdrop from './ImageBackdrop/ImageBackdrop'
 
 const PhotosPage = () => {
     const { isMobile } = MediaQueries()
-    const [page, setPage] = useState(1)
-    const [perPage, setPerPage] = useState(20)
-    const [searchResult, setSearchResult] = useState()
-    const [searchInputValue, setSearchInputValue] = useState()
-    const [searchByUrl, setSearchByUrl] = useState()
-    const [openBackdrop, setOpenBackdrop] = useState(false)
+    const page = useInput(1)
+    const pageCount = useInput(20)
+    const searchResult = useInput('')
+    const searchInput = useInput('')
+    const searchByUrl = useInput('')
+    const openBackdrop = useInput(false)
+    const openImageBackdrop = useInput(false)
     const { appState, dispatch } = useGlobalContext()
     const { photos, loading } = appState
     const { displayedImages } = photos
 
     const handlePageChange = (e, val) => {
-        setPage(val)
+        page.setValue(val)
         dispatch({ type: actionTypes.SET_PAGE, payload: val })
     }
 
-    const handleSearchInputValueChange = (e) =>
-        setSearchInputValue(e.currentTarget.value)
-
-    const handleSearchByUrl = (e) => {
-        setSearchByUrl(e.currentTarget.value)
+    
+    const clearSearchInputValue = () => {
+        searchInput.setValue('')
     }
 
     const backdropOpen = () => {
-        setOpenBackdrop(true)
+        openBackdrop.setValue(true)
     }
 
     const handleCloseBackdrop = () => {
-        setOpenBackdrop(false)
-        setSearchByUrl('')
+        openBackdrop.setValue(false)
+        searchByUrl.setValue('')
     }
 
     const clearSearch = () => {
-        setSearchResult('')
-        setSearchInputValue('')
-        setSearchByUrl('')
+        searchResult.setValue('')
+        searchInput.setValue('')
+        searchByUrl.setValue('')
     }
 
     const handleSearch = (val) => {
-        let foundResult
         if (!val) return
-        if (val.startsWith('https')) {
+        let foundResult
+        if (openBackdrop.value) {
             foundResult = displayedImages.filter(
                 (img) => img.links.html === val
             )
-            setSearchByUrl('')
-            setOpenBackdrop(false)
+            searchByUrl.setValue('')
+            openBackdrop.setValue(false)
         } else {
             foundResult = displayedImages.filter(
                 (img) => img.customTitle === val
             )
         }
-        setSearchResult(foundResult)
+        searchResult.setValue(foundResult)
     }
+
+    const handleOpenImageBackdrop = () => {
+        openImageBackdrop.setValue(true);
+    }
+
+    const handleCloseImageBackdrop = () => {
+        openImageBackdrop.setValue(false);
+    }
+    console.log(loading)
 
     return loading ? (
         <h1>Loading ...</h1>
@@ -89,24 +98,6 @@ const PhotosPage = () => {
             <PageWrapper>
                 <SectionWrapper>
                     <H3 text="Discover some of the best photos on the web" />
-                    <Subtitle
-                        text="Initially the component renders the first 12 photos with an api call,and each page is a separate request.The search will work only for the current page :)"
-                        style={{ width: '50%' }}
-                    />
-                    <H3
-                        text="Here are some by img URL searches that are currently on the page :"
-                        style={{
-                            marginTop: '2rem',
-                            fontSize: '1.5rem',
-                        }}
-                    />
-
-                    <Subtitle
-                        text={displayedImages && displayedImages[0].links.html}
-                    />
-                    <Subtitle
-                        text={displayedImages && displayedImages[1].links.html}
-                    />
                     <SearchComponent>
                         <SearchWrapper
                             sx={{
@@ -143,14 +134,12 @@ const PhotosPage = () => {
                                 }}
                                 label="Search for Photos"
                                 type="text"
-                                outsidevalue={searchInputValue}
-                                handleoutsidevalue={
-                                    handleSearchInputValueChange
-                                }
+                                value={searchInput.value}
+                                onChange={searchInput.onChange}
                             />
-                            {searchInputValue && (
+                            {searchInput.value && (
                                 <CloseButton
-                                    onClick={() => setSearchInputValue('')}
+                                    onClick={clearSearchInputValue}
                                 />
                             )}
                             <CustomIconButton
@@ -161,7 +150,7 @@ const PhotosPage = () => {
                                 }}
                                 tooltipTitle="Search"
                                 icon={<SearchIcon />}
-                                onClick={() => handleSearch(searchInputValue)}
+                                onClick={() => handleSearch(searchInput.value)}
                             />
                         </SearchWrapper>
                         <CustomButton
@@ -176,21 +165,22 @@ const PhotosPage = () => {
                 </SectionWrapper>
                 <SectionWrapper style={{ marginTop: '5rem' }}>
                     <ImagesList
-                        images={searchResult ? searchResult : displayedImages}
+                        handleOpenImageBackdrop={handleOpenImageBackdrop}
+                        images={searchResult.value ? searchResult.value : displayedImages}
                     />
                     <PaginationComponent
-                        page={page}
-                        count={perPage}
+                        page={page.value}
+                        count={pageCount.value}
                         onChange={handlePageChange}
                     />
                 </SectionWrapper>
                 <SearchByUrlBackdrop
-                    open={openBackdrop}
+                    open={openBackdrop.value}
                     onCloseClick={handleCloseBackdrop}
-                    inputValue={searchByUrl}
-                    handleSearchByUrl={handleSearchByUrl}
-                    onSearchClick={() => handleSearch(searchByUrl)}
+                    input={searchByUrl}
+                    onSearchClick={() => handleSearch(searchByUrl.value)}
                 />
+                <ImageBackdrop openImageBackdrop={openImageBackdrop.value} closeImageBackdrop={handleCloseImageBackdrop}/>
                 <SectionWrapper>
                     <H3 text="Choose a plan to download editorial images" />
                     <div style={{ display: 'flex' }}>

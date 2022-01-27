@@ -24,7 +24,7 @@ const reducer = (state, action) => {
         case actionTypes.SET_LOADING:
             return {
                 ...state,
-                loading: action.playload,
+                loading: action.payload,
             }
         case actionTypes.SET_USER:
             return {
@@ -46,9 +46,48 @@ const reducer = (state, action) => {
                 messageToast: initialState.messageToast,
             }
         }
+        case actionTypes.SET_CURRENT_IMAGE: {
+            return {
+                ...state,
+                photos: {...state.photos, currentlyDisplayedImage: setCurrentlyDisplayedImage(state,action.payload)}
+            }
+        }
+        case actionTypes.SEARCH_PHOTOS: {
+            return {
+                ...state,
+                photos: {
+                    ...state.photos,
+                    displayedImages: action.payload
+                }
+            }
+        }
+        case actionTypes.SET_PHOTO_STATISTICS: {
+            return {
+                ...state,
+                photos: {
+                    ...state.photos,
+                    currentlyDisplayedImageStatistics : action.payload
+                }
+            }
+        }
+        case actionTypes.SET_DARK_THEME : {
+            return {
+                ...state,
+                darkTheme : !state.darkTheme,
+               /*  theme : {
+                    dark : !state.theme.dark,
+                    light : !state.theme.light
+                } */
+            }
+        }
         default:
             return state
     }
+}
+
+const setCurrentlyDisplayedImage = (state,id) => {
+    const currentlyDisplayedImage = state.photos.displayedImages.filter(photo => photo.id === id)
+    return currentlyDisplayedImage
 }
 
 export default reducer

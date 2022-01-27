@@ -7,12 +7,12 @@ import CustomTheme from './CustomTheme/CustomTheme.jsx'
 const App = () => {
     return (
         <>
-            <CustomTheme>
-                <GlobalContextProvider>
+            <GlobalContextProvider>
+                <CustomTheme>
                     <MessageToast />
                     <AppRouter />
-                </GlobalContextProvider>
-            </CustomTheme>
+                </CustomTheme>
+            </GlobalContextProvider>
         </>
     )
 }

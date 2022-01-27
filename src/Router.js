@@ -21,6 +21,7 @@ const AppRouter = () => {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignUpPage />} />
                         <Route path="/photos" element={<PhotosPage />} />
+                        
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>

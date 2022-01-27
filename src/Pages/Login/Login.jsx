@@ -13,11 +13,15 @@ import {
 import GoogleIcon from '@mui/icons-material/Google'
 import { useNavigate } from 'react-router-dom'
 import { LinkWrapper, Divider, Line, Or } from './styles'
+import useInput from '../../CustomHooks/useInput'
+
 
 const Login = () => {
     const signIn = GoogleLoginLogic()
     const navigate = useNavigate()
-
+    const email = useInput('')
+    const password = useInput('')
+    
     return (
         <PageWrapper
             style={{
@@ -42,11 +46,26 @@ const Login = () => {
                 }}
             />
             <Form>
-                <CustomInput label="Email address" type="email" />
-                <CustomInput label="Password" type="password" />
+                <CustomInput 
+                    label="Email address" 
+                    type="email" 
+                    value={email.value} 
+                    onChange={email.onChange} 
+                    error={email.error ? true : false}
+                    helperText={email.error}
+                />
+                <CustomInput 
+                    label="Password" 
+                    type="password" 
+                    value={password.value}
+                    onChange={password.onChange}
+                    error={password.error ? true : false}
+                    helperText={password.error}
+                    />
                 <CustomButton
                     buttonText="Login"
                     style={{ width: '100%', height: '38px', fontSize: '14px' }}
+                    disabled={(password.error || email.error) ? true : false}
                 />
                 <CustomButton
                     buttonText="Sign in with Google"

@@ -6,6 +6,7 @@ export const StyledImage = styled('img')(({ theme }) => ({
     width: '100%',
     transition: 'all .5s ease ',
     filter: 'brightness(80%)',
+    cursor:'pointer',
     '&:hover': {
         transform: 'scale(1.1)',
         filter: 'brightness(35%)',
