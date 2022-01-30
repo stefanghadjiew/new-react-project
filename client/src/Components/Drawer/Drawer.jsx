@@ -1,4 +1,4 @@
-import React, { useState,Fragment,useRef,useEffect } from 'react'
+import React, { useState,Fragment } from 'react'
 import { Drawer,Divider,List } from '@mui/material'
 import { CustomButton } from '..'
 import StyledIconButton from '../CustomIconButton/styles'
@@ -8,6 +8,7 @@ import H6 from '../CustomTypography/H6'
 import {StyledButtonContainer} from './styles'
 import { useGlobalContext } from '../../GlobalContext/GlobalContext';
 import { setDarkTheme } from '../../GlobalContext/actions';
+
 
 const useStyles = makeStyles({
     menu : {
@@ -21,19 +22,15 @@ const useStyles = makeStyles({
 })
 
 const CustomDrawer = ({menuItems,languages,icon}) => {
-    const {dispatch} = useGlobalContext()
-    const darkThemeButtonRef = useRef(null)
-    const lightThemeButtonRef = useRef(null)
+    const {dispatch,appState} = useGlobalContext()
+    const {darkTheme} = appState
     const classes = useStyles()
     const [open,setOpen] = useState(false)
     const toggle = () => {
         setOpen(prevOpen => !prevOpen)
     }
 
-    useEffect(() =>{
-        console.log(darkThemeButtonRef.current)
-        },[lightThemeButtonRef])
-
+    
     return (
         <Fragment>
             <StyledIconButton onClick={toggle}>
@@ -48,8 +45,8 @@ const CustomDrawer = ({menuItems,languages,icon}) => {
                     <H6 text="Theme" style={{padding:'1rem'}}/>
                     <StyledButtonContainer >
                         <CustomButton
+                            autoFocus={darkTheme ? false : true}
                             onClick={() => setDarkTheme(dispatch)}
-                            ref={lightThemeButtonRef}
                             buttonText="Light"
                             style={{
                                 width:'45%',
@@ -58,6 +55,7 @@ const CustomDrawer = ({menuItems,languages,icon}) => {
                                 backgroundColor:'rgba(255,255,255,.8)',
                                 }}/>
                         <CustomButton 
+                            autoFocus={darkTheme ? true : false}
                             onClick={() => setDarkTheme(dispatch)}
                             buttonText="Dark"
                             style={{
