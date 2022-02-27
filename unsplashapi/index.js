@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {createGetOptions,createPostOptions} from '../utils/index.js'
+import {createGetOptions,createPostOptions, createAuthorizedPostOptions} from '../utils/index.js'
 
 const BASE_URL = 'https://api.unsplash.com/'
 
@@ -16,19 +16,25 @@ export const getAllPhotos = async (req,res,next) => {
     const options = createGetOptions(url)
     try {
         const { data } = await axios.request(options)
-        cachedData = [...data,{currentPage: pageNumber}]
+        cachedPhotos = [...data,{currentPage: pageNumber}]
         return res.json(data)
     } catch(err) {
         return next(err)
     }
 }
 
+//requires user to be authorized
+
 export const likeAphoto = async (req,res,next) => {
-    const id = req.params.id // ?????
+    const isUserAuthorized = req.isUserAuthorized
+    const id = req.params.id 
     const url = `${BASE_URL}photos/${id}/like`
-    const options = createPostOptions(url)
+    const options = isUserAuthorized 
+        ? createAuthorizedPostOptions(url) 
+        : createPostOptions(url)
     try {
         const { data } = await axios.request(options)
+        console.log(data)
         return res.json(data)
     } catch(err) {
         return next(err)
@@ -67,3 +73,5 @@ export const searchPhotos = async (req,res,next) => {
     }
 
 }
+
+

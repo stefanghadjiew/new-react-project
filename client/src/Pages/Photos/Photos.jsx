@@ -1,20 +1,20 @@
-import React from 'react'
+import React, {Suspense,lazy,useEffect} from 'react'
 import {
     PageWrapper,
     PaginationComponent,
     H3,
     Navbar,
-    ImagesList,
     SectionWrapper,
     CustomInput,
     CustomIconButton,
     CloseButton,
     CustomButton,
+    
     ScrollToTopButton,
     Footer,
+    Loader
 } from '../../Components'
 import { useGlobalContext } from '../../GlobalContext/GlobalContext'
-
 import SearchIcon from '@mui/icons-material/Search'
 import ImageSearchIcon from '@mui/icons-material/ImageSearch'
 import MediaQueries from '../../responsive/MediaQueries'
@@ -24,7 +24,14 @@ import actionTypes from '../../GlobalContext/actionTypes'
 import OnDemand from './OnDemand/OnDemand.jsx'
 import { SearchWrapper, SearchComponent } from './styles'
 import useInput from '../../CustomHooks/useInput'
-import ImageBackdrop from './ImageBackdrop/ImageBackdrop'
+const ImagesList = lazy(() => import('../../Components/ImagesList/ImagesList.jsx'))
+const ImageBackdrop = lazy(() => import('./ImageBackdrop/ImageBackdrop'))
+/* const ImagesList = lazy(() => {
+    return new Promise(resolve => {
+      setTimeout(() => resolve(import("../../Components/ImagesList/ImagesList")), 1000);
+    });
+  }); */
+
 
 const PhotosPage = () => {
     const { isMobile } = MediaQueries()
@@ -36,8 +43,12 @@ const PhotosPage = () => {
     const openBackdrop = useInput(false)
     const openImageBackdrop = useInput(false)
     const { appState, dispatch } = useGlobalContext()
-    const { photos, loading } = appState
+    const { photos } = appState
     const { displayedImages } = photos
+
+    useEffect(() =>{
+        console.log("Rendering")
+    },[])
 
     const handlePageChange = (e, val) => {
         page.setValue(val)
@@ -88,11 +99,11 @@ const PhotosPage = () => {
     const handleCloseImageBackdrop = () => {
         openImageBackdrop.setValue(false);
     }
-    console.log(loading)
+    
 
-    return loading ? (
-        <h1>Loading ...</h1>
-    ) : (
+     /* loading ? (
+        <Loader/>
+    ) :  */return (
         <>
             <Navbar />
             <PageWrapper>
@@ -164,23 +175,28 @@ const PhotosPage = () => {
                     </SearchComponent>
                 </SectionWrapper>
                 <SectionWrapper style={{ marginTop: '5rem' }}>
-                    <ImagesList
-                        handleOpenImageBackdrop={handleOpenImageBackdrop}
-                        images={searchResult.value ? searchResult.value : displayedImages}
-                    />
+                    <Suspense fallback={<Loader/>}>
+                        <ImagesList
+                            handleOpenImageBackdrop={handleOpenImageBackdrop}
+                            images={searchResult.value ? searchResult.value : displayedImages}
+                        />
+                    </Suspense>
                     <PaginationComponent
                         page={page.value}
                         count={pageCount.value}
                         onChange={handlePageChange}
                     />
                 </SectionWrapper>
+               
                 <SearchByUrlBackdrop
                     open={openBackdrop.value}
                     onCloseClick={handleCloseBackdrop}
                     input={searchByUrl}
                     onSearchClick={() => handleSearch(searchByUrl.value)}
                 />
-                <ImageBackdrop openImageBackdrop={openImageBackdrop.value} closeImageBackdrop={handleCloseImageBackdrop}/>
+                <Suspense fallback={<Loader/>}>
+                    <ImageBackdrop openImageBackdrop={openImageBackdrop.value} closeImageBackdrop={handleCloseImageBackdrop}/>
+                </Suspense>
                 <SectionWrapper>
                     <H3 text="Choose a plan to download editorial images" />
                     <div style={{ display: 'flex' }}>

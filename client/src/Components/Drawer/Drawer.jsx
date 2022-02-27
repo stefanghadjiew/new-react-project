@@ -7,7 +7,7 @@ import { makeStyles } from '@mui/styles';
 import H6 from '../CustomTypography/H6'
 import {StyledButtonContainer} from './styles'
 import { useGlobalContext } from '../../GlobalContext/GlobalContext';
-import { setDarkTheme } from '../../GlobalContext/actions';
+import { setDarkTheme,setLightTheme } from '../../GlobalContext/actions';
 
 
 const useStyles = makeStyles({
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 
 const CustomDrawer = ({menuItems,languages,icon}) => {
     const {dispatch,appState} = useGlobalContext()
-    const {darkTheme} = appState
+    const {appTheme} = appState
     const classes = useStyles()
     const [open,setOpen] = useState(false)
     const toggle = () => {
@@ -45,8 +45,8 @@ const CustomDrawer = ({menuItems,languages,icon}) => {
                     <H6 text="Theme" style={{padding:'1rem'}}/>
                     <StyledButtonContainer >
                         <CustomButton
-                            autoFocus={darkTheme ? false : true}
-                            onClick={() => setDarkTheme(dispatch)}
+                            autoFocus={appTheme.dark ? false : true}
+                            onClick={() => setLightTheme(dispatch)}
                             buttonText="Light"
                             style={{
                                 width:'45%',
@@ -55,7 +55,7 @@ const CustomDrawer = ({menuItems,languages,icon}) => {
                                 backgroundColor:'rgba(255,255,255,.8)',
                                 }}/>
                         <CustomButton 
-                            autoFocus={darkTheme ? true : false}
+                            autoFocus={appTheme.dark ? true : false}
                             onClick={() => setDarkTheme(dispatch)}
                             buttonText="Dark"
                             style={{

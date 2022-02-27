@@ -8,9 +8,10 @@ export const StyledImage = styled('img')(({ theme }) => ({
     filter: 'brightness(80%)',
     cursor:'pointer',
     '&:hover': {
-        transform: 'scale(1.1)',
+        transform: 'scale(1.05)',
         filter: 'brightness(35%)',
         transition: 'all .2s ease',
+        zIndex:10
     },
 }))
 

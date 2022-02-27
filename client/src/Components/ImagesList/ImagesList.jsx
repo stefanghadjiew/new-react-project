@@ -14,6 +14,7 @@ import {
 import actionTypes from '../../GlobalContext/actionTypes.js'
 import {fetchPhotosStatistics} from '../../GlobalContext/actions'
 
+
 const ImagesList = ({ images,handleOpenImageBackdrop }) => {
     const { isTablet, isMobile } = MediaQueries()
     const { dispatch } = useGlobalContext()
@@ -23,26 +24,19 @@ const ImagesList = ({ images,handleOpenImageBackdrop }) => {
         fetchPhotosStatistics(dispatch,imageId)
         handleOpenImageBackdrop()
     }
+
     
     return (
-        <ImageList
-            cols={isMobile ? 1 : isTablet ? 2 : 3}
-            rowHeight={250}
-            style={{ gap: '1.5rem' }}
-        >
-            {images &&
-                images.map((image) => (
-                    <ImageListItem
-                        onClick={() => handleImageClick(image.id)}
-                        cols={1}
-                        rows={1}
-                        key={image.id}
-                        style={{
-                            overflow: 'hidden',
-                            borderRadius: '10px',
-                            position: 'relative',
-                        }}
-                    >
+        <ImageList 
+            sx={{ width: '100%', height: isMobile ? '500vh' : '1800px' }} 
+            variant="woven" 
+            cols={isMobile ? 1 : isTablet ? 2 : 3} 
+            gap={8}>
+            {images.map((image) => (
+                <ImageListItem 
+                    sx={{overflow:'hidden',position:'relative'}} 
+                    key={image.img} 
+                    onClick={() => handleImageClick(image.id)}>
                         <DescriptionWrapper>
                             <Likes
                                 likes={image.likes}
@@ -50,6 +44,7 @@ const ImagesList = ({ images,handleOpenImageBackdrop }) => {
                             />
                             <StyledImage
                                 src={image.urls.small}
+                                style={{objectFit:'cover'}}
                                 alt={image.alt_description}
                                 loading="lazy"
                             />
@@ -70,9 +65,9 @@ const ImagesList = ({ images,handleOpenImageBackdrop }) => {
                                 <StyledSubtitle text="This is a test to see if what i`m doing is going to work" />
                             </Description>
                         </DescriptionWrapper>
-                    </ImageListItem>
-                ))}
-        </ImageList>
+            </ImageListItem>
+            ))}
+      </ImageList> 
     )
 }
 

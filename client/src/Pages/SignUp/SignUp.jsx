@@ -1,6 +1,7 @@
-import React from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
-/* import { useGlobalContext } from '../../GlobalContext/GlobalContext' */
+import React , {Suspense, lazy, useState} from 'react'
+import { useGlobalContext } from '../../GlobalContext/GlobalContext'
+import actionTypes from '../../GlobalContext/actionTypes'
+import { useNavigate } from 'react-router-dom'
 import {
     Form,
     CustomInput,
@@ -9,17 +10,46 @@ import {
     Subtitle,
     PageWrapper,
     BackButton,
+    Loader
 } from '../../Components'
 import useInput from '../../CustomHooks/useInput'
+import { setUser } from '../../GlobalContext/actions'
+const ReCAPTCHA = lazy(() => {
+    return new Promise (resolve => {
+        setTimeout(() => {
+            resolve(import('react-google-recaptcha'))
+        },500)
+    })
+  
+})
 
 const SignUp = () => {
     const siteKey = process.env.REACT_APP_RECAPTCHA_TEST_SITE_KEY
     const email = useInput('')
     const password = useInput('')
+    const [recaptchaAnswer, setRecaptchaAnswer] = useState()
+    const { dispatch } = useGlobalContext()
+    const navigate = useNavigate()
 
-    //change this later
+    const userInfo = {
+        email: email.value,
+        password: password.value
+    }
+
     const onChange = (value) => {
-        console.log(`Recaptcha value is : ${value}`)
+        setRecaptchaAnswer(value)
+    }
+
+    const signUpUser = () => {
+        if(recaptchaAnswer ) {
+            setUser(dispatch,userInfo)
+            navigate('/')
+        } else {
+            dispatch({
+                type: actionTypes.OPEN_MESSAGE_TOAST,
+                payload: {isOpen:true,message: 'Recaptcha error',severity:'error'}
+            }) 
+        }
     }
 
     return (
@@ -63,15 +93,18 @@ const SignUp = () => {
                     onChange={password.onChange}
                     helperText={password.error}
                 />
-                <ReCAPTCHA
-                    style={{ width: '100%', display: 'flex' }}
-                    sitekey={siteKey}
-                    onChange={onChange}
-                />
+                <Suspense fallback={<Loader/>}>
+                    <ReCAPTCHA
+                        style={{ width: '100%', display: 'flex' }}
+                        sitekey={siteKey}
+                        onChange={onChange}
+                    />
+                </Suspense>
                 <CustomButton
                     buttonText="Continue"
                     style={{ width: '100%', height: '38px', fontSize: '14px' }}
-                    disabled={true}
+                    disabled={false}
+                    onClick={signUpUser}
                 />
             </Form>
         </PageWrapper>

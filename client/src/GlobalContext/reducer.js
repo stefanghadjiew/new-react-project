@@ -73,11 +73,19 @@ const reducer = (state, action) => {
         case actionTypes.SET_DARK_THEME : {
             return {
                 ...state,
-                darkTheme : !state.darkTheme,
-               /*  theme : {
-                    dark : !state.theme.dark,
-                    light : !state.theme.light
-                } */
+                appTheme : {
+                    dark : true,
+                    light : false
+                } 
+            }
+        }
+        case actionTypes.SET_LIGHT_THEME: {
+            return {
+                ...state,
+                appTheme : {
+                    dark: false,
+                    light:true
+                }
             }
         }
         default:

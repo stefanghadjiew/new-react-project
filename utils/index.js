@@ -21,3 +21,15 @@ export const createPostOptions = url => {
     
     return options
 }
+
+export const createAuthorizedPostOptions = url => {
+    const options = {
+        method:'POST',
+        url,
+        headers : {
+            Authorization : `Bearer ${process.env.UNSPLASH_ACCESS_TOKEN}`
+        }
+    }
+
+    return options
+}

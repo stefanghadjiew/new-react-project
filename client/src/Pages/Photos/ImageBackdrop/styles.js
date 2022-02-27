@@ -34,5 +34,6 @@ export const ImageInfoWrapper = styled('div')(() =>({
 export const InfoContainer = styled('div')(() =>({
     display:'flex',
     flexDirection:'column',
-    justifyContent:'flex-start'
+    justifyContent:'flex-start',
+    marginRight:'2rem'
 }))

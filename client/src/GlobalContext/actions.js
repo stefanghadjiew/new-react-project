@@ -1,6 +1,12 @@
 import actionTypes from './actionTypes'
 import { pages } from '../api/apiConstants'
-import { unsplashGetPhotos, unsplashLikePhoto,unsplashSearchPhotos,getPhotoStatistics } from '../api/unsplashApi'
+import { 
+    unsplashGetPhotos, 
+    unsplashLikePhoto,
+    unsplashSearchPhotos,
+    getPhotoStatistics,
+    createUser 
+} from '../api/unsplashApi'
 
 export const fetchPhotos = async (dispatch,appState) => {
     dispatch({ type: actionTypes.SET_LOADING, payload: true })
@@ -63,4 +69,21 @@ export const fetchPhotosStatistics = async (dispatch,photoId) => {
 
 export const setDarkTheme = (dispatch) => {
     dispatch({type: actionTypes.SET_DARK_THEME})
+}
+
+export const setLightTheme = (dispatch) => {
+    dispatch({type: actionTypes.SET_LIGHT_THEME})
+}
+
+export const setUser = async (dispatch,userInfo) => {
+    dispatch({ type: actionTypes.SET_LOADING, payload: true })
+    try {
+        const response = await createUser(userInfo)
+        dispatch({type: actionTypes.SET_USER, payload: response})
+    } catch(err) {
+        dispatch({
+            type: actionTypes.OPEN_MESSAGE_TOAST,
+            payload: {isOpen:true,message: err.message,severity:'error'}
+        }) 
+    }
 }

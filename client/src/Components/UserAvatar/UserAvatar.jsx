@@ -23,7 +23,6 @@ const UserAvatar = ({onMouseEnter,containerSx}) => {
             ?   <Container sx={containerSx}>
                     <Avatar 
                         onMouseEnter={onMouseEnter}
-                        
                         alt={`${displayedUser.first_name} ${displayedUser.last_name}`} 
                         src={displayedUser.profile_image.small}
                     />

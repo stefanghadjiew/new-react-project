@@ -23,7 +23,7 @@ const CustomPopover = () => {
     
     return (
         <Fragment>
-            <UserAvatar onMouseEnter={handlePopoverOpen}/>
+            <UserAvatar containerSx={{left:'5rem'}} onMouseEnter={handlePopoverOpen}/>
             <Box ref={parentRef}>
                 <Popover
                     container={parentRef.current}

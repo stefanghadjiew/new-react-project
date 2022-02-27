@@ -1,5 +1,56 @@
 import axios from 'axios'
-import { accessKey, baseUrl } from './apiConstants'
+import { accessKey, baseUrl,BASE_URL } from './apiConstants'
+
+
+// the proxy calls (need to implement)
+
+    export const createUser = async (userInfo) => {
+        try {
+            const { data } = await axios.post(`${BASE_URL}/users/create`,userInfo)
+            return data
+        } catch(err) {
+            throw err
+        }
+    }  
+
+    /* export const getPhotos = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}allPhotos`)
+            return response
+        } catch(err) {
+            throw err
+        }
+    } */
+
+
+    /* export const likeAPhoto = async (photoId) => {
+        try {
+            const response = await axios.post(`${BASE_URL}photos/${photoId}/like`)
+            return response
+        } catch(err) {
+            throw err
+        }
+    } */
+
+
+    /* export const searchPhotos = async () => {
+        try {
+            const response = await axios.get(`${BASE_URL}search/photos`)
+            return response
+        } catch(err) {
+            throw err
+        }
+    } */
+
+
+    /* export const getPhotoStatistics = async (photoId) => { // PAGINATION ????
+        try {
+            const response = await axios.get(`${BASE_URL}photos/${photoId}/statistics`)
+            return response
+        } catch(err) {
+            throw err
+        }
+    } */
 
 
     export const unsplashGetPhotos = async (page,pageNumber) => {

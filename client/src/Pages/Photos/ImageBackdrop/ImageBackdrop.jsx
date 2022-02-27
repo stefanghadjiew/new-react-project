@@ -7,7 +7,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import AddIcon from '@mui/icons-material/Add'
 import { useGlobalContext } from '../../../GlobalContext/GlobalContext'
 import MediaQueries from '../../../responsive/MediaQueries'
-import StaticResources from './staticResources'
 import { likeAphoto } from '../../../GlobalContext/actions'
 import { pages } from '../../../api/apiConstants'
 import CustomPopover from '../Popover/Popover.jsx'
@@ -18,18 +17,18 @@ import { useNavigate } from 'react-router-dom'
 
 const ImageBackdrop = ({openImageBackdrop,closeImageBackdrop}) => {
     const [dropdownMenu,setDropdownMenu] = useState(false)
-    const {isMobile,isTablet,isLaptop,isDesktop} = MediaQueries()
+    const { isMobile } = MediaQueries()
     const {appState,dispatch} = useGlobalContext()
     const {photos,user} = appState
-    const {currentlyDisplayedImage} = photos
+    const {currentlyDisplayedImage,currentlyDisplayedImageStatistics} = photos
+    const imageViews = currentlyDisplayedImageStatistics?.views?.total 
+    const imageDownloads = currentlyDisplayedImageStatistics?.downloads?.total 
     const image = currentlyDisplayedImage[0]
-    const imageSrc = image && image.urls.small
-    const imageAlt = image && image.alt_description
-    const height = image && image.height
-    const width = image && image.width
-    const dowlnoadUrls = image && image.urls
+    const imageSrc = image?.urls?.small
+    const imageAlt = image?.alt_description
+    const dowlnoadUrls = image?.urls
     const navigate = useNavigate()
-    console.log(user)
+    
     
     const handleLikePhoto = () => {
         !user 
@@ -41,13 +40,15 @@ const ImageBackdrop = ({openImageBackdrop,closeImageBackdrop}) => {
         setDropdownMenu(!dropdownMenu)
     }
 
-    const {renderItems} = StaticResources(dowlnoadUrls,height,width,toggleMenu)
-    
     return (
         <Fragment>
-            <Backdrop sx={{padding: isMobile ? 0 : '3rem',zIndex:10}} open={openImageBackdrop}>
+            <Backdrop sx={{padding: isMobile ? 0 : '2rem',zIndex:10}} open={openImageBackdrop}>
                 <Container>
-                    <CustomIconButton sx={{position:'absolute',top:'-30px',left:'-30px'}} icon={<CloseIcon/>} onClick={closeImageBackdrop}/>
+                    <CustomIconButton 
+                        sx={{position:'absolute',top:'1rem',left:'1rem'}} 
+                        icon={<CloseIcon/>} 
+                        onClick={closeImageBackdrop}
+                        tooltipTitle='Close'/>
                     <CustomPopover/>
                     <ActionsContainer>
                         <CustomIconButton 
@@ -68,11 +69,12 @@ const ImageBackdrop = ({openImageBackdrop,closeImageBackdrop}) => {
                     </ImageContainer>
                     <ImageInfoWrapper>
                         <InfoContainer>
-                            <Subtitle text="Test1"/>
-                            <Subtitle text="Test1"/>
+                            <Subtitle text="Views"/>
+                            <Subtitle text={imageViews}/>
                         </InfoContainer>
                         <InfoContainer>
-                            <Subtitle text="Test1"/>
+                            <Subtitle text="Downloads"/>
+                            <Subtitle text={imageDownloads}/>
                         </InfoContainer>
                     </ImageInfoWrapper>
                 </Container>

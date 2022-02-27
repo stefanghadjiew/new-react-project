@@ -12,11 +12,10 @@ const initialState = {
         currentlyDisplayedImage : [],
         currentlyDisplayedImageStatistics : []
     },
-    darkTheme: true,
-    /* theme : { ---> is that better ??
+    appTheme : { 
         dark : false,
         light : true,
-    }, */
+    },
     subscription: '',
     onDemand: '',
     error: '',

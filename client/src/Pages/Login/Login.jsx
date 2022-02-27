@@ -22,6 +22,7 @@ const Login = () => {
     const email = useInput('')
     const password = useInput('')
     
+    
     return (
         <PageWrapper
             style={{
@@ -66,6 +67,7 @@ const Login = () => {
                     buttonText="Login"
                     style={{ width: '100%', height: '38px', fontSize: '14px' }}
                     disabled={(password.error || email.error) ? true : false}
+                    
                 />
                 <CustomButton
                     buttonText="Sign in with Google"

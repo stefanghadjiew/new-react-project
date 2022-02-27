@@ -4,10 +4,10 @@ import { useGlobalContext } from '../GlobalContext/GlobalContext'
 
 const CustomTheme = ({ children }) => {
     const { appState } = useGlobalContext()
-    const { darkTheme } = appState
+    const { appTheme } = appState
 
-    const textColor = darkTheme ? 'rgba(255,255,255,.8)' : '#2c2d3d'
-    const backgroundColor = darkTheme ? '#2c2d3d' : 'rgba(255,255,255,.8)'
+    const textColor = appTheme.dark ? 'rgba(255,255,255,.8)' : '#2c2d3d'
+    const backgroundColor = appTheme.dark ? '#2c2d3d' : 'rgba(255,255,255,.8)'
     const buttonColor = '#687ded !important'
         
     const theme = createTheme({
