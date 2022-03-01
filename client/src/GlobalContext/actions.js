@@ -84,6 +84,9 @@ export const setUser = async (dispatch,userInfo) => {
         dispatch({
             type: actionTypes.OPEN_MESSAGE_TOAST,
             payload: {isOpen:true,message: err.message,severity:'error'}
-        }) 
+        })
+        return { hasError : true } 
     }
+    dispatch({ type: actionTypes.SET_LOADING, payload: false })
+    
 }

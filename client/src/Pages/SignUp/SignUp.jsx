@@ -1,4 +1,4 @@
-import React , {Suspense, lazy, useState} from 'react'
+import React , {Suspense, lazy, useState } from 'react'
 import { useGlobalContext } from '../../GlobalContext/GlobalContext'
 import actionTypes from '../../GlobalContext/actionTypes'
 import { useNavigate } from 'react-router-dom'
@@ -14,6 +14,7 @@ import {
 } from '../../Components'
 import useInput from '../../CustomHooks/useInput'
 import { setUser } from '../../GlobalContext/actions'
+
 const ReCAPTCHA = lazy(() => {
     return new Promise (resolve => {
         setTimeout(() => {
@@ -30,7 +31,7 @@ const SignUp = () => {
     const [recaptchaAnswer, setRecaptchaAnswer] = useState()
     const { dispatch } = useGlobalContext()
     const navigate = useNavigate()
-
+    
     const userInfo = {
         email: email.value,
         password: password.value
@@ -40,10 +41,11 @@ const SignUp = () => {
         setRecaptchaAnswer(value)
     }
 
-    const signUpUser = () => {
+    const signUpUser = async () => {
         if(recaptchaAnswer ) {
-            setUser(dispatch,userInfo)
-            navigate('/')
+           const res =  await setUser(dispatch,userInfo)
+           if(res?.hasError) return 
+           navigate('/')
         } else {
             dispatch({
                 type: actionTypes.OPEN_MESSAGE_TOAST,
@@ -52,6 +54,7 @@ const SignUp = () => {
         }
     }
 
+    
     return (
         <PageWrapper
             style={{
@@ -74,39 +77,45 @@ const SignUp = () => {
                 text="Get your API key in seconds"
                 style={{ marginBottom: '2rem' }}
             />
-            <Form style={{ maxWidth: '24rem' }}>
-                <CustomInput
-                    label="Email address"
-                    type="email"
-                    style={{ minWidth: '19rem' }}
-                    error={email.error ? true : false}
-                    value={email.value}
-                    helperText={email.error}
-                    onChange={email.onChange}
-                />
-                <CustomInput
-                    label="Password"
-                    type="password"
-                    style={{ minWidth: '19rem' }}
-                    error={password.error ? true : false}
-                    value={password.value}
-                    onChange={password.onChange}
-                    helperText={password.error}
-                />
-                <Suspense fallback={<Loader/>}>
-                    <ReCAPTCHA
-                        style={{ width: '100%', display: 'flex' }}
-                        sitekey={siteKey}
-                        onChange={onChange}
+            <Suspense fallback={<Loader/>}>
+                <Form style={{ maxWidth: '24rem' }}>
+                    <CustomInput
+                        label="Email address"
+                        type="email"
+                        style={{ minWidth: '19rem' }}
+                        error={email.error ? true : false}
+                        value={email.value}
+                        helperText={email.error}
+                        onChange={email.onChange}
                     />
-                </Suspense>
-                <CustomButton
-                    buttonText="Continue"
-                    style={{ width: '100%', height: '38px', fontSize: '14px' }}
-                    disabled={false}
-                    onClick={signUpUser}
-                />
-            </Form>
+                    <CustomInput
+                        label="Password"
+                        type="password"
+                        style={{ minWidth: '19rem' }}
+                        error={password.error ? true : false}
+                        value={password.value}
+                        onChange={password.onChange}
+                        helperText={password.error}
+                    />
+                    <Suspense fallback={<Loader/>}>
+                        <ReCAPTCHA
+                            style={{ width: '100%', display: 'flex' }}
+                            sitekey={siteKey}
+                            onChange={onChange}
+                        />
+                    </Suspense>
+                    <CustomButton
+                        buttonText="Continue"
+                        style={{ width: '100%', height: '38px', fontSize: '14px' }}
+                        disabled={
+                            recaptchaAnswer === undefined
+                            || email.error !== ''
+                            || password.error !== ''
+                        }
+                        onClick={signUpUser}
+                    />
+                </Form>
+            </Suspense>
         </PageWrapper>
     )
 }
