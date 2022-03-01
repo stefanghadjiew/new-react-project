@@ -11,13 +11,13 @@ export const useGlobalContext = () => {
 
 export const GlobalContextProvider = ({ children }) => {
     const [appState, dispatch] = useReducer(reducer, initialState)
-    
+   
     useEffect(() => {
         fetchPhotos(dispatch,appState)
     }, [appState.photos.page])
 
     return (
-        <GlobalContext.Provider value={{ appState, dispatch }}>
+        <GlobalContext.Provider value={{ appState, dispatch}}>
             {children}
         </GlobalContext.Provider>
     )

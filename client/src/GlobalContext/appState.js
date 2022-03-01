@@ -18,7 +18,6 @@ const initialState = {
     },
     subscription: '',
     onDemand: '',
-    error: '',
 }
 
 export default initialState
