@@ -1,15 +1,14 @@
 import axios from 'axios'
 import { accessKey, baseUrl,BASE_URL } from './apiConstants'
 
-
 // the proxy calls (need to implement)
 
     export const createUser = async (userInfo) => {
         try {
-            const { data } = await axios.post(`${BASE_URL}/users/create`,userInfo)
+            const { data } = await axios.post(`${BASE_URL}/users/create`,userInfo) 
             return data
         } catch(err) {
-            throw err
+            throw new Error(err.response.data.message)
         }
     }  
 
