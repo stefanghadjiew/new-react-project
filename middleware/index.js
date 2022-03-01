@@ -10,7 +10,11 @@ export const createUser = (req,res,next) => {
                 email:userInfo.email,
                 token : jwt.sign(userInfo,process.env.JWT_SECRET_KEY)}) 
             : next({status : 409,message:'User already exists'})
-        : res.status(400).json({message: 'Invalid email and/or password is less than 8 characters'})
+        : res.status(400).json({
+            message: 'Invalid email and/or password is less than 8 characters',
+            timestamp: Date.now(),
+            description:'Testing'
+        })
 }
 
 const checkDataForRequiredProperties = data => {
