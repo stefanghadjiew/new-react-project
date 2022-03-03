@@ -9,10 +9,11 @@ const useInput = (initialValue) => {
     //Dont validate input value on login page
     const isSignup = pathname === '/signup'
     const isLogin = pathname === '/login'
+    const isResetPassword = pathname ==='/reset-password'
     
     const handleChange = (e) => {
         setInputValue(e.currentTarget.value)
-        if(isLogin || isSignup) {
+        if(isLogin || isSignup || isResetPassword) {
             setError(validateInput(e.currentTarget.type, e.currentTarget.value))
         } 
     }

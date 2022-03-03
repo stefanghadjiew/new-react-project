@@ -1,6 +1,6 @@
 import express from 'express'
 import { getAllPhotos,likeAphoto,getPhotoStatistics,searchPhotos } from '../unsplashapi/index.js'
-import { createUser,loginUser, isUserAuthorized } from '../middleware/index.js'
+import { createUser,loginUser, isUserAuthorized, resetPassword } from '../middleware/index.js'
 const router = express.Router()
 
 //a photo ID for testing endpoints - FV3GConVSss
@@ -12,5 +12,6 @@ router.get('/search/photos',searchPhotos)
 router.post('/photos/:id/like',isUserAuthorized,likeAphoto) //authorized user only
 router.post('/users/create',createUser)
 router.post('/login',loginUser)
+router.post('/reset-password', resetPassword) 
 
 export default router

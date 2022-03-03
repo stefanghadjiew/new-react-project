@@ -24,11 +24,11 @@ const CustomTheme = ({ children }) => {
                 },
             },
         },
-       /*  custom : { // Uncomment this when ready with setup and delete themeColors object
+       custom : { // Uncomment this when ready with setup and delete themeColors object
             backgroundColor : backgroundColor,
             text: textColor,
             button: buttonColor
-        }, */
+        }, 
         themeColors: { // fix this now since darkTheme is coming from golbal State
             dark: {
                 background: backgroundColor,

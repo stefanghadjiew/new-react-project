@@ -15,6 +15,12 @@ class DB {
         return this.checkForUser(userInfo) ? this.usersDb.filter(user => user.email === userInfo.email && user.password === userInfo.password)[0] : false    
     }
 
+    findUserByEmail= userInfo => {
+        const userIndex = this.usersDb.findIndex(user => user.email === userInfo.email)
+        if(userIndex === -1) return false
+        return this.usersDb[userIndex]
+    }
+
     deleteUser = userInfo => {
         if(this.checkForUser(userInfo)) {
             const userIndex = this.usersDb.findIndex(user => user.email === userInfo.email && user.password === userInfo.password)

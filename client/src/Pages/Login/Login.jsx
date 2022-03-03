@@ -14,6 +14,8 @@ import GoogleIcon from '@mui/icons-material/Google'
 import { useNavigate } from 'react-router-dom'
 import { LinkWrapper, Divider, Line, Or } from './styles'
 import useInput from '../../CustomHooks/useInput'
+import { setUser } from '../../GlobalContext/actions'
+import { useGlobalContext } from '../../GlobalContext/GlobalContext'
 
 
 const Login = () => {
@@ -21,7 +23,18 @@ const Login = () => {
     const navigate = useNavigate()
     const email = useInput('')
     const password = useInput('')
+    const { dispatch } = useGlobalContext()
     
+    const userInfo = {
+        email: email.value,
+        password: password.value
+    }
+
+    const loginUser = async () => {
+        const res = await setUser(dispatch,userInfo,true)
+        if(res?.hasError) return
+        navigate('/')
+    }
     
     return (
         <PageWrapper
@@ -66,8 +79,8 @@ const Login = () => {
                 <CustomButton
                     buttonText="Login"
                     style={{ width: '100%', height: '38px', fontSize: '14px' }}
-                    disabled={(password.error || email.error) ? true : false}
-                    
+                    onClick={loginUser}
+                    disabled={email.error !== ''|| password.error !== ''}
                 />
                 <CustomButton
                     buttonText="Sign in with Google"
@@ -80,7 +93,7 @@ const Login = () => {
                 />
                 <LinkWrapper>
                     <CustomLink
-                        link="#"
+                        link="/reset-password"
                         title="Forgot your password?"
                         style={{ fontSize: '14px', fontWeight: '500' }}
                     />

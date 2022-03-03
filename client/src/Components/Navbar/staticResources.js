@@ -15,6 +15,9 @@ import { makeStyles } from '@mui/styles';
 import { useTranslation } from 'react-i18next';
 import 'flag-icons/css/flag-icons.css';
 import { ListItem } from '@mui/material';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useGlobalContext } from '../../GlobalContext/GlobalContext';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 
 const useStyles = makeStyles({
@@ -55,6 +58,8 @@ const StaticResources = () => {
 
     const { t } = useTranslation();
     const classes = useStyles();
+    const { appState } = useGlobalContext()
+    const { user } = appState
 
     const menuItems = 
     [
@@ -63,14 +68,22 @@ const StaticResources = () => {
         {title: t('Navbar.items.2'), id: 2, menuIcon: <AccountCircleIcon className={classes.icon}/>,link: '/users'}, 
         {title: t('Navbar.items.3'), id: 3, menuIcon: <CollectionsIcon className={classes.icon}/>, link: '/collections'}, 
         {title: t('Navbar.items.4'), id: 4, menuIcon: <TopicIcon className={classes.icon}/>,link: '/topics'},
-        {title: t('Navbar.items.5'), id: 5, menuIcon: <LoginIcon className={classes.icon}/>, link: '/login'}
+        user !== null 
+        ? [
+            {title: t('Navbar.items.6'), id: 6, menuIcon: <LogoutIcon className={classes.icon}/>, link: '/login'},
+            {title: t('Navbar.items.7'), id: 7, menuIcon: <RestartAltIcon className={classes.icon}/>,link: '/reset-password'},
+        ]
+        : {title: t('Navbar.items.5'), id: 5, menuIcon: <LoginIcon className={classes.icon}/>, link: '/login'}
+            
     ]
 
-    const renderMenuItems = menuItems.map(item => 
+    console.log(menuItems.flat())
+
+    const renderMenuItems = menuItems.flat().map(item => 
     <CustomLink title={item.title} key={item.id} link={item.link}/>
     );
-
-    const renderDropdownMenuItems = menuItems.map(item =>
+    
+    const renderDropdownMenuItems = menuItems.flat().map(item =>
     <Link to={item.link} className={classes.link} key={item.id}> 
         <ListItem className={classes.menuItem}>
             <ListItemIcon>
@@ -91,7 +104,7 @@ const StaticResources = () => {
     );
 
     return {
-       menuItems,
+        menuItems,
         renderMenuItems,
         renderDropdownMenuItems,
         renderLanguages

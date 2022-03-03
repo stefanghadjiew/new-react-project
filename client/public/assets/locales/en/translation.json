@@ -6,7 +6,9 @@
         "2": "Users",
         "3": "Collections",
         "4": "Topics",
-        "5": "Login"
+        "5": "Login",
+        "6": "Logout",
+        "7": "Reset Password"
       }
     },
     "HomePage" : {

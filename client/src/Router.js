@@ -6,6 +6,7 @@ import {
     SignUpPage,
     PageNotFound,
     PhotosPage,
+    ResetPassword
 } from './Pages'
 import { Loader } from './Components'
 import './i18n'
@@ -24,6 +25,7 @@ const AppRouter = () => {
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignUpPage />} />
                         <Route path="/photos" element={<PhotosPage />} />
+                        <Route path="/reset-password" element={<ResetPassword/>} />
                         <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </Router>

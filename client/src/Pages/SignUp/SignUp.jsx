@@ -43,7 +43,7 @@ const SignUp = () => {
 
     const signUpUser = async () => {
         if(recaptchaAnswer ) {
-           const res =  await setUser(dispatch,userInfo)
+           const res =  await setUser(dispatch,userInfo,false)
            if(res?.hasError) return 
            navigate('/')
         } else {

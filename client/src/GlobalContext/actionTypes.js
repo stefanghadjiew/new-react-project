@@ -11,6 +11,7 @@ const actionTypes = {
     SET_PHOTO_STATISTICS:'SET_PHOTO_STATISTICS',
     SET_DARK_THEME: 'SET_DARK_THEME',
     SET_LIGHT_THEME: 'SET_LIGHT_THEME',
+    LOG_OUT_USER: 'LOG_OUT_USER',
 }
 
 export default actionTypes

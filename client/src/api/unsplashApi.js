@@ -8,9 +8,26 @@ import { accessKey, baseUrl,BASE_URL } from './apiConstants'
             const { data } = await axios.post(`${BASE_URL}/users/create`,userInfo) 
             return data
         } catch(err) {
+            throw new Error(err.response.data.message) // axios specific way of saving error
+        }
+    }
+    
+    export const loginUser = async (userInfo) => {
+        try {
+            const { data } = await axios.post(`${BASE_URL}/login`,userInfo)
+            return data
+        } catch(err) {
             throw new Error(err.response.data.message)
         }
-    }  
+    }
+
+    export const resetPassword = async (userInfo) => {
+        try {
+            const { data } = await axios.post(`${BASE_URL}/reset-password`,userInfo)
+        } catch(err) {
+            throw new Error(err.response.data.message)
+        }
+    }
 
     /* export const getPhotos = async () => {
         try {

@@ -1,12 +1,18 @@
 import db from "../db/index.js"
 import jwt from 'jsonwebtoken'
+import { 
+    checkDataForRequiredProperties,
+    getAuthenticatedUser,
+    getUserByEmail,
+    checkValidResetPasswordRequest,
+    checkIfDBisEmpty
+} from '../utils/index.js'
 
 export const createUser = (req,res,next) => {
     const userInfo = req.body
     checkDataForRequiredProperties(userInfo) 
         ? db.createNewUser(userInfo) 
             ? res.status(200).json({
-                message: 'User created successfully',
                 email:userInfo.email,
                 token : jwt.sign(userInfo,process.env.JWT_SECRET_KEY)}) 
             : next({status : 409,message:'User already exists'})
@@ -17,40 +23,23 @@ export const createUser = (req,res,next) => {
         })
 }
 
-const checkDataForRequiredProperties = data => {
-    return Object.keys(data).length !== 0 
-        && data.hasOwnProperty('email') 
-        && data.hasOwnProperty('password')
-        && checkForValidEmail(data['email'])
-        && data['password'].length > 7   
-}
-
-const checkForValidEmail = email => {
-    const validEmailRegEx = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    return email.match(validEmailRegEx) 
-        ? true
-        : false
-}
-
 export const loginUser = (req,res,next) => {
     const userInfo = req.body
+    if(checkIfDBisEmpty(db)) {
+        res.status(400).json({message: 'User with given credentials doesent exist'})
+        return
+    }
     checkDataForRequiredProperties(userInfo)
-        ? getAuthenticatedUser(userInfo) 
+        ? getAuthenticatedUser(userInfo,db) 
             ? res.status(200).json({
-                message:'Authentication successful',
                 email: userInfo.email,
-                token : jwt.sign(userInfo,process.env.JWT_SECRET_KEY)
+                token : jwt.sign(userInfo,process.env.JWT_SECRET_KEY) // user needs to send this token back to obtain the one from unsplash
                 })
             : next({status:400,message:"Wrong name/password"})
-        : res.status(400).json({message: 'Username and/or password need to be atleast 4 symbols'})
+        : res.status(400).json({message: 'User doesent exist.Please create an account first'})
 }
 
-const getAuthenticatedUser = userInfo => {
-    const foundUser = db.findUser(userInfo)
-    return foundUser // can be either user or false
-}
-
-export const isUserAuthorized = (req,res,next) => {
+export const isUserAuthorized = (req,res,next) => { // check if user sends the token from the proxy 
     const jwtPayload = req.headers.authorization.split(" ")[1] 
     jwt.verify(jwtPayload,process.env.JWT_SECRET_KEY, (err,decoded) => {
         if(decoded)  {
@@ -59,4 +48,24 @@ export const isUserAuthorized = (req,res,next) => {
         }
         if(err) return next({status:401,message: "You have to login to perform this action"})
     })
+}
+
+export const resetPassword = (req,res,next) => {
+    const userInfo = req.body
+    if(checkIfDBisEmpty(db)) {
+        return res.status(400).json({message: 'No user with given password found'})
+    }
+    if(checkValidResetPasswordRequest(userInfo) === false) {
+        return res.status(400).json({message: 'Password should be more than 7 characters long'})
+    }
+    const foundUser = getUserByEmail(userInfo,db)
+    if(foundUser) {
+        if(foundUser.password === userInfo.newPassword) {
+            return res.status(400).json({message: 'New password should be different the old one'})
+        }
+        foundUser.password = userInfo.newPassword
+        return res.status(200).json({message: 'Password changed successfully'})
+        
+    }
+    res.status(400).json({message: 'No user with given password found'})
 }

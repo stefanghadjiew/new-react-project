@@ -23,3 +23,4 @@ export { default as ScrollToTopButton } from './ScrollToTopButton/ScrollToTopBut
 export { default as Image } from './Image/Image.jsx'
 export { default as UserAvatar } from './UserAvatar/UserAvatar.jsx'
 export { default as Loader } from './Loader/Loader.jsx'
+export { default as ConfirmationDialog } from './ConfirmationDialog/ConfirmationDialog.jsx'

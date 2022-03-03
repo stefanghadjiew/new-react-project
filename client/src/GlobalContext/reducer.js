@@ -88,6 +88,12 @@ const reducer = (state, action) => {
                 }
             }
         }
+        case actionTypes.LOG_OUT_USER: {
+            return {
+                ...state,
+                user: null
+            }
+        }
         default:
             return state
     }

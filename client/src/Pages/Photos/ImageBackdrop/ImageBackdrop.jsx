@@ -13,8 +13,6 @@ import CustomPopover from '../Popover/Popover.jsx'
 import { useNavigate } from 'react-router-dom'
 
 
-
-
 const ImageBackdrop = ({openImageBackdrop,closeImageBackdrop}) => {
     const [dropdownMenu,setDropdownMenu] = useState(false)
     const { isMobile } = MediaQueries()
@@ -60,7 +58,7 @@ const ImageBackdrop = ({openImageBackdrop,closeImageBackdrop}) => {
                         <CustomButton buttonText="Download free" sx={{margin:'0 .1rem 0 0',borderRadius:'2px 0 0 2px',padding:'0 .5rem'}}/>
                         
                     </ActionsContainer>
-                    <ImageContainer sx={{width:'70vw',height:'80%'}}>
+                    <ImageContainer sx={{maxWidth:'700px',height:'80%'}}>
                         <Image 
                             src={imageSrc}
                             alt={imageAlt}
